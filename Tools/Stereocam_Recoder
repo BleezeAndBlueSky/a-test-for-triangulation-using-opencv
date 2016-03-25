@@ -1,0 +1,59 @@
+/* Note:
+ *     The two videos are writed in the folder that contains the executable file ,
+ *   in the format of MJPG , BGR.
+ *
+ */
+
+
+#include <iostream>
+#include <opencv2/opencv.hpp>
+using namespace std;
+using namespace cv;
+int main()
+{
+
+    VideoCapture camera1(0);
+    VideoCapture camera2(1);
+
+    if(!camera1.isOpened()) return -1;
+    if(!camera2.isOpened()) return -1;
+
+    Mat cam1;
+    Mat cam2;
+    double fps1 = camera1.get(CAP_PROP_FPS);
+    double fps2 = camera2.get(CAP_PROP_FPS);
+    Size size1( (int)camera1.get(CAP_PROP_FRAME_WIDTH),
+                (int)camera1.get(CAP_PROP_FRAME_HEIGHT));
+
+    Size size2( (int)camera2.get(CAP_PROP_FRAME_WIDTH),
+                (int)camera2.get(CAP_PROP_FRAME_HEIGHT));
+    VideoWriter writer1;
+    VideoWriter writer2;
+    writer1.open("cam_video1.avi",CV_FOURCC('M','J','P','G'),fps1,size1);
+    writer2.open("cam_video2.avi",CV_FOURCC('M','J','P','G'),fps2,size2);
+
+
+    namedWindow("cam1",1);
+    namedWindow("cam2",WINDOW_AUTOSIZE);
+    for(;;)
+    {
+
+          camera1 >> cam1;
+        if(!cam1.data) break;
+          camera2 >> cam2;
+        if(!cam2.data) break;
+        //if(!cam2.data) break;
+        cv::imshow("cam1",cam1);
+        cv::imshow("cam2",cam2);
+
+
+        writer1 << cam1;
+        writer2 << cam2;
+
+
+        if(waitKey(33) >= 0) break;
+    }
+
+    camera1.release();
+    camera2.release();
+}

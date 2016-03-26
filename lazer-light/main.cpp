@@ -109,7 +109,6 @@ void mean(cv::Mat src,std::vector<Point2f>& dst)     //Find laserstripe's center
         if(  (max-min) < laser_strip_width_max && (max-min)> laser_strip_width_min)
         {
             mid = (float) ((min+max)/2);
-//            dst.at<uchar>(i,mid) = 255;              //set the midpoint to 255;
             dst.push_back(cv::Point2f(mid,(float)i));
 
         }

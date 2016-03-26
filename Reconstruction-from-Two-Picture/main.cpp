@@ -2,17 +2,9 @@
 #include <opencv2/opencv.hpp>
 
 
-double canny_threshold1 = 50;
-double canny_threshold2 = 150;
-double threshold_value = 200, threshold_maxval = 255, threshold_type = cv::THRESH_BINARY;
-int laser_strip_width_max = 20;
-
 int main()
 {
-    std::cout << "canny_threshold1=50 \n"
-                 "canny_threshold2=150 \n"
-                 "threshold_value =200,threshold_maxval=255,threshold_type=THRESH_BINARY \n"
-              << std::endl;
+
     cv::VideoCapture camera1(0);
     cv::VideoCapture camera2(1);
 
@@ -22,10 +14,10 @@ int main()
     return -1;
 
 
-    cv::Mat edge1;
-    cv::Mat edge2;
-    cv::namedWindow("edge1",1);
-    cv::namedWindow("edge2",1);
+    cv::Mat img1;
+    cv::Mat img2;
+    cv::namedWindow("img1",1);
+    cv::namedWindow("img2",1);
 
     cv::Mat M1,M2,D1,D2,R,T;// 由标定参数获得,需要赋值
     cv::Size img_size,newimg_size;        //Size of the image used for stereo calibration.需要赋值
@@ -48,21 +40,14 @@ int main()
         cv::Mat frame1, frame2;
         camera1 >> frame1;
         camera2 >> frame2;
-        cv::cvtColor(frame1, edge1, CV_BGR2GRAY);
-        cv::cvtColor(frame2, edge2, CV_BGR2GRAY);
-        cv::GaussianBlur(edge1, edge1, cv::Size(7,7), 1.5, 1.5);//gaussian smoothing
-        cv::GaussianBlur(edge2, edge2, cv::Size(7,7), 1.5, 1.5);
-        cv::threshold(edge1, edge1, threshold_value,threshold_maxval,threshold_type);
-        cv::threshold(edge2, edge2, threshold_value,threshold_maxval,threshold_type);
-        cv::Mat final1(edge1.rows, edge1.cols, edge1.type() , 0);
-        cv::Mat final2(edge2.rows, edge2.cols, edge2.type() , 0);
-        mean(edge1 , final1);
-        mean(edge2 , final2);
+        cv::cvtColor(frame1, img1, CV_BGR2GRAY);
+        cv::cvtColor(frame2, img2, CV_BGR2GRAY);
+        cv::GaussianBlur(img1, img1, cv::Size(7,7), 1.5, 1.5);//gaussian smoothing
+        cv::GaussianBlur(img2, img2, cv::Size(7,7), 1.5, 1.5);
 
 
-
-       cv::remap(final1, final1, map11, map12, INTER_LINEAR); //双线性插补
-       cv::remap(final2, final2, map21, map22, INTER_LINEAR);
+       cv::remap(img1, img1, map11, map12, INTER_LINEAR); //双线性插补
+       cv::remap(img2, img2, map21, map22, INTER_LINEAR);
 
 
            bm->setROI1(roi1);
@@ -79,7 +64,7 @@ int main()
 
            cv::Mat disp;
 
-           bm->compute(final1, final2, disp);
+           bm->compute(img1, img2, disp);
 
         cv::Mat image3D;
 

@@ -9,7 +9,8 @@ double threshold_value = 200, threshold_maxval = 255, threshold_type = cv::THRES
 int laser_strip_width_max = 20;
 int laser_strip_width_min = 3;
 
-
+void mean(cv::Mat src,std::vector<Point2f>& dst);
+void save_result(cv::Mat result, const std::string s);
 int main()
 {
     std::cout << "canny_threshold1=50 \n"
@@ -117,19 +118,23 @@ void mean(cv::Mat src,std::vector<Point2f>& dst)     //Find laserstripe's center
 }
 
 
-void save_result(cv::Mat result, const char* filename)
+void save_result(cv::Mat result, const std::string s)
 {
-
-    FILE* fp = fopen(filename, "wt");
-    fprintf(fp, "%02d/n", dst.rows);
-    fprintf(fp, "%02d/n", dst.cols);
-    for(int y = 0; y < dst.rows; y++)
+    std::ofstream fstrm(s, std::ofstream::app);//if use fstream,
+                                              //The following string can't be written to the file
+    if (!fstrm)
     {
-        for(int x = 0; x < dst.cols; x++)
-        {
-            short disp = dst.at<short>(y, x); // 这里视差矩阵是CV_16S 格式的，故用 short 类型读取
-            fprintf(fp, "%d/n", disp); // 若视差矩阵是 CV_32F 格式，则用 float 类型读取
-        }
+        std::cout << s <<" cannot be opened" << std::endl;
+        return;
     }
-    fclose(fp);
+    for(int y = 0; y < result.rows; y++)
+    {
+        for(int x = 0; x < result.cols; x++)
+        {
+            fstrm << result.at<float>(y, x);
+        }
+        fstrm << ';' << std::endl;
+    }
+    fstrm.close();
+
 }

@@ -18,14 +18,6 @@ int point_num_min = 100; //least point in a contour
 
 int main(int argc, char** argv)
 {
-    cv::Size2f min;
-    cv::Size2f max;
-    min.width = minwidth;
-    min.height = minheight;
-    max.width  = maxwidth ;
-    max.height = maxheight;
-
-
     if(argc < 2)
         return -1;
     cv::Mat image1 = cv::imread(argv[1]);
@@ -54,8 +46,17 @@ int main(int argc, char** argv)
         if( count > point_num_min )   //  the least points to form a contour
             contours01.push_back(cv::fitEllipse( contours1[k]) );
     }
+
+
     cv::drawContours(allcontours, contours1,-1, CV_RGB(0,0,0), 1, cv::LINE_8,cv::noArray(),contours1.size(),cvPoint(0,0));
 
+
+    cv::Size2f min;
+    cv::Size2f max;
+    min.width = minwidth;
+    min.height = minheight;
+    max.width  = maxwidth ;
+    max.height = maxheight;
 
     for( auto a : contours01)
     {

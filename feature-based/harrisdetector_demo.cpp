@@ -1,3 +1,8 @@
+/* 
+ * opencv computer vision application programming cookbook 2nd edition
+ * demo for the example class file harrisdetector
+ */
+
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include "harrisdetector.h"

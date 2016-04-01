@@ -42,7 +42,6 @@ int main(int argc, char** argv)
     {
 
         int count = contours1[k].size(); // This is point's number in the contour
-                                // Number point must be more than or equal to 6 (for cvFitEllipse_32f).
         if( count > point_num_min )   //  the least points to form a contour
             contours01.push_back(cv::fitEllipse( contours1[k]) );
     }
@@ -67,8 +66,8 @@ int main(int argc, char** argv)
                 )
         {
             cv::ellipse(ellipse_contour,a,CV_RGB(255,255,255));
-            std::cout << "size = " << a.size << " , "
-                  << "center =" << a.center << std::endl;
+            std::cout << "size = "  << a.size   << " , "
+                      << "center =" << a.center << std::endl;
         }
 
     }

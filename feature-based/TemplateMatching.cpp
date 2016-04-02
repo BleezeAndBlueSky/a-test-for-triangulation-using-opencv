@@ -33,8 +33,8 @@ int main( int argc , char** argv )
     cv::rectangle( display, minLoc, pt2, CV_RGB(0,255,0) );
     cv::rectangle( result,  minLoc, pt2, CV_RGB(0,255,0) );
 
-    imshow( "source", display );
-    imshow( "result", result );
+    cv::imshow( "source", display );
+    cv::imshow( "result", result );
 
 
     cv::waitKey(0);

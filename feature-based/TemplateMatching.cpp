@@ -10,6 +10,10 @@ int main( int argc , char** argv )
     cv::Mat image, templ, result;
     image = cv::imread( argv[1]);
     templ = cv::imread( argv[2]);
+    if(image.empty())
+        return -1;
+    if(templ.empty())
+        return -1;
     cv::namedWindow( "source", 1);
     cv::namedWindow( "result", 1 );
     result.create( image.cols - templ.cols + 1, image.rows - templ.rows + 1, CV_32FC1 );

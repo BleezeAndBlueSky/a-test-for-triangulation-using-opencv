@@ -1,7 +1,7 @@
 /*
  * opencv computer vision programming cook book 2nd edition
  * example code
- *  ColorDetector.cpp
+ * including the ColorDetector.cpp,  and colordetector_demo.cpp for demostration
  */
  
 #ifndef COLORDETECTOR_H

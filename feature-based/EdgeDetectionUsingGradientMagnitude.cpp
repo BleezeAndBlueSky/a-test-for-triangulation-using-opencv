@@ -17,7 +17,7 @@ int main(int argc, char ** argv)
     cv::Matx33f kernely(-1,-2,-1,
                          0, 0, 0,
                          1, 2, 1);
-//    cv::flip(kernelx,kernelx,-1);
+//    cv::flip(kernelx,kernelx,-1);   //翻转
 //    cv::flip(kernely,kernely,-1);
 //    cv::sepFilter2D(img,dst,CV_64F,kernelx,kernely);//kernel.type() == DataType<DT>::type && (kernel.rows == 1 || kernel.cols == 1)) in RowFilter
     cv::filter2D(img,dst1,CV_32F,kernelx);
@@ -30,7 +30,7 @@ int main(int argc, char ** argv)
 //    dst3 = dst1 + dst2;
 //     cv::convertScaleAbs( dst1, dst1 );
 //    cv::convertScaleAbs( dst2, dst2 );
-    std::cout << dst1.depth() <<std::endl
+    std::cout << dst1.depth() <<std::endl      //只会显示0, 显示不出来的
               << dst2.depth() << std::endl;
     dst1.convertTo(dst1,CV_32F);
     dst2.convertTo(dst2,CV_32F);
@@ -38,7 +38,7 @@ int main(int argc, char ** argv)
 //    cv::magnitude( dst1, dst2, dst3 );   //x – floating-point array of x-coordinates of the vectors.
                                            //y – floating-point array of y-coordinates of the vectors; it must have the same size as x .
                                            // not for 2D image
-    cv::pow( dst1, 2, dst1 );
+    cv::pow( dst1, 2, dst1 );                  // dst = src^power   
     cv::pow( dst2, 2, dst2 );
     cv::addWeighted( dst1, 1, dst2, 1, 0, dst3 );//dst3= dst1 +dst2;
     cv::sqrt( dst3, dst3);

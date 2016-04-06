@@ -1,3 +1,7 @@
+/*
+ * Smooth before Applying Derivative Operator!
+ *
+ */
 #include <opencv2/opencv.hpp>
 #include <iostream>
 

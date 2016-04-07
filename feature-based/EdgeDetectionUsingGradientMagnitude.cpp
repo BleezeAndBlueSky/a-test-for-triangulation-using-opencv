@@ -42,6 +42,9 @@ int main(int argc, char ** argv)
     cv::pow( dst2, 2, dst2 );
     cv::addWeighted( dst1, 1, dst2, 1, 0, dst3 );//dst3= dst1 +dst2;
     cv::sqrt( dst3, dst3);
+    
+    cv::threshold( dst3, dst3, 80, 255,cv::THRESH_BINARY);
+    
     cv::filter2D(img,dst,-1,kernelx);
     cv::filter2D(dst,dst,-1,kernely);
 

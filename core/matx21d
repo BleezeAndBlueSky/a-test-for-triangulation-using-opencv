@@ -1,0 +1,14 @@
+#include <iostream>
+#include <opencv2/opencv.hpp>
+
+int main()
+{
+    cv::Matx21d m1( 1,
+                    2);
+    cv::Matx22d m2( 1,1,
+                    1,1);
+    cv::Matx21d m3 = m2* m1;
+    m3 (2,1);   // 第二行第一列取值
+    std::cout << m3 <<std::endl;
+
+}

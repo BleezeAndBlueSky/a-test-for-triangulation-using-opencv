@@ -162,12 +162,12 @@ void houghellipse(std::vector<cv::Point> contour, cv::Mat image)
                            -k2, 1 ),
                     matkp2(-k1, 1
                            -k3, 1);
-        matp1 = matkp1.inv() * matcp1;
-        matp2 = matkp2.inv() * matcp2;
-        p1.x =matp1(1,1);
-        p1.y =matp2(2,1);
-        p2.x =matp1(1,1);
-        p2.y =matp2(2,1);
+        cv::solve(matkp1,matcp1,matp1);
+        cv::solve(matkp2,matcp2,matp2);
+        p1.x =matp1(0,0);
+        p1.y =matp2(0,1);
+        p2.x =matp1(0,0);
+        p2.y =matp2(0,1);
 
         double kp1,kp2;
         kp1 = (double)(p1.y-pp1.y)/(p1.x-pp1.x);
@@ -178,11 +178,10 @@ void houghellipse(std::vector<cv::Point> contour, cv::Mat image)
                         -kp2,1);
         cv::Matx21d kpc(p1.y-kp1*p1.x,
                         p2.y-kp2*p2.x);
-
-        mcenter = kpp.inv() * kpc;
+        cv::solve(kpp,kpc,mcenter);
         cv::Point center;
-        center.x = cvRound(mcenter(1,1));
-        center.y = cvRound(mcenter(2,1));
+        center.x = cvRound(mcenter(0,0));
+        center.y = cvRound(mcenter(0,1));
         if(center.x < image.cols &&
                 center.x >0      &&
                 center.y < image.rows &&

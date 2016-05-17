@@ -1,3 +1,8 @@
+/* 
+ * Find the most voted line by houghLines
+ *                         ---------------2016. 5.17  21:05
+ */
+
 #include <opencv2/opencv.hpp>
 #include <vector>
 #include <cmath>

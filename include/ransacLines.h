@@ -67,7 +67,7 @@ void ransacLines(std::vector<cv::Point>& input,std::vector<cv::Vec4d>& lines,
             else ++iter;
         }
     }
-    else std::cout << "no input to ransac" << std::endl;
+    else std::cout << "no input to ransacLines" << std::endl;
 }
 
 #endif

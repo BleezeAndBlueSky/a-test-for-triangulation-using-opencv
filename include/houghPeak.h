@@ -1,5 +1,6 @@
 // Find the most voted line by houghLines
-
+#ifndef HOUGHLINESPEAK_H
+#define HOUGHLINESPEAK_H
 
 #include <opencv2/opencv.hpp>
 #include <vector>
@@ -71,3 +72,5 @@ void HoughLinesPeak( LinePolar& linepolar,
     linepolar.rho =   (rpeak - (numrho - 1)*0.5f) * rho;
     linepolar.angle = static_cast<float>(min_theta) + npeak * theta;
 }
+
+#endif

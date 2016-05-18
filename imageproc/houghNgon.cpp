@@ -1,7 +1,18 @@
 // demo for the use of houghPeak to detect n-gon in the point array
 // given the cv::Mat src,cv::Rect ROI ,bool debugflag for debuging
 
+#include "plate.h"
+#include <opencv2/opencv.hpp>
+#include <vector>
+#include <iostream>
+#include <cmath>
+
+bool debugflag = 1;
+cv::Mat src;
+cv::Rect rect;
 // first , to enlarge the background then put the ROI on the center
+int main()
+{
     cv::Mat regionsOfinterest(src,rect);
     cv::Mat img;
     regionsOfinterest.copyTo(img);
@@ -96,4 +107,5 @@
         cv::line( dst, pt1, pt2, cv::Scalar(0,0,255), 1, 8 );
     }
     cv::imshow("houghline",dst);
-cv::waitKey();
+    cv::waitKey();
+}

@@ -6,6 +6,7 @@
 #include <opencv2/opencv.hpp>
 #include <vector>
 #include <cmath>
+#include "houghPeak.h"
 
 struct LinePolar
 {

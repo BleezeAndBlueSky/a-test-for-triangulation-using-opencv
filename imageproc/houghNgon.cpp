@@ -7,6 +7,11 @@
 #include <iostream>
 #include <cmath>
 #include "houghPeak.h"
+struct LinePolar
+{
+        float rho;
+        float angle;
+};
 
 bool debugflag = 1;
 cv::Mat src;

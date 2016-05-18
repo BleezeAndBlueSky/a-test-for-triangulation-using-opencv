@@ -73,7 +73,7 @@ int main()
     std::vector<cv::Point2f> vertexes;
     
     //
-    double distance = 3;       // the points all within the distance would be eliminated
+    double distance = 3;       
     unsigned int ngon =4;      // n - gon to be detected
     LinePolar linepolar;
     for(int i = 0;i< ngon;++i){
@@ -85,6 +85,8 @@ int main()
         double x0 = a*rho, y0 = b*rho;
         cv::Point imax(cvRound(x0 + 1000*(-b)),  cvRound(y0 + 1000*(a)));
         cv::Point jmax(cvRound(x0 - 1000*(-b)),  cvRound(y0 - 1000*(a)));
+        cv::line( dst, pt1, pt2, cv::Scalar(0,0,255), 1, 8 );
+        //all the points within the distance are to be eliminated
         auto iter = edgepoints.begin();
         while(iter != edgepoints.end()){
             double dis = fabs((jmax.x - imax.x)*((*iter).y - imax.y) -
@@ -92,21 +94,11 @@ int main()
                          / sqrt((jmax.x - imax.x)*(jmax.x - imax.x)
                                  + (jmax.y - imax.y)*(jmax.y - imax.y));
             if(dis < distance)
-                iter = edgepoints.erase(iter);  //erase the dis within , then point to
-                                           //   the next element
+                iter = edgepoints.erase(iter);
             else ++iter;
         }
     }
-    //draw all lines detected by hough
-    for( size_t i = 0; i < lines.size(); i++ ){
-        float rho = lines[i].rho;
-        float theta = lines[i].angle;
-        double a = cos(theta), b = sin(theta);
-        double x0 = a*rho, y0 = b*rho;
-        cv::Point pt1(cvRound(x0 + 1000*(-b)),  cvRound(y0 + 1000*(a)));
-        cv::Point pt2(cvRound(x0 - 1000*(-b)),  cvRound(y0 - 1000*(a)));
-        cv::line( dst, pt1, pt2, cv::Scalar(0,0,255), 1, 8 );
-    }
+
     cv::imshow("houghline",dst);
     cv::waitKey();
 }

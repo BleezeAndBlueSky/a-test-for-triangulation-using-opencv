@@ -83,9 +83,9 @@ int main()
         float theta = lines[i].angle;
         double a = cos(theta), b = sin(theta);
         double x0 = a*rho, y0 = b*rho;
-        cv::Point imax(cvRound(x0 + 1000*(-b)),  cvRound(y0 + 1000*(a)));
+        cv::Point imax(cvRound(x0 + 1000*(-b)),  cvRound(y0 + 1000*(a))); // get two points for the line
         cv::Point jmax(cvRound(x0 - 1000*(-b)),  cvRound(y0 - 1000*(a)));
-        cv::line( dst, pt1, pt2, cv::Scalar(0,0,255), 1, 8 );
+        cv::line( dst, imax, jmax, cv::Scalar(0,0,255), 1, 8 );
         //all the points within the distance are to be eliminated
         auto iter = edgepoints.begin();
         while(iter != edgepoints.end()){

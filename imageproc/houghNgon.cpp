@@ -6,6 +6,7 @@
 #include <vector>
 #include <iostream>
 #include <cmath>
+#include "houghPeak.h"
 
 bool debugflag = 1;
 cv::Mat src;

@@ -121,7 +121,7 @@ int main()
         }
     }
     // sort vertex in the order of up-left -> up-right -> down-right -> down-left
-    // first to find one point in the quadrangle, then to determine where the relative position of all the vertex are
+    // first to find one point in the quadrangle, then to determine where all the relative positions of vertexes are
     cv::Point central = cv::Point(0,0);
     for(auto a : vertexes){
         central.x += a.x;

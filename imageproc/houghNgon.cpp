@@ -105,5 +105,44 @@ int main()
     }
 
     cv::imshow("houghline",dst);
+    
+    for(size_t i = 0;i < lines.size(); ++i){
+        for(size_t j = i+1; j < lines.size();++j){
+            cv::Matx22f A(std::cos(lines[i].angle), std::sin(lines[i].angle),
+                          std::cos(lines[j].angle), std::sin(lines[j].angle));
+            cv::Matx21f b(lines[i].rho,lines[j].rho),x;
+            if( std::fabs(lines[i].angle- lines[j].angle) > CV_PI/4){
+                cv::solve(A,b,x,cv::DECOMP_LU);         //方程组Ax = b 求x
+                cv::Point vertex;
+                vertex.x = cvRound(x(0,0));
+                vertex.y = cvRound(x(0,1));
+                vertexes.push_back(vertex);
+            }
+        }
+    }
+    // sort vertex in the order of up-left -> up-right -> down-right -> down-left
+    // first to find one point in the quadrangle, then to determine where the relative position of all the vertex are
+    cv::Point central = cv::Point(0,0);
+    for(auto a : vertexes){
+        central.x += a.x;
+        central.y += a.y;
+    }
+    central = cv::Point(central.x /4.0 , central.y/4.0);
+    std::vector<cv::Point2f> vertexes_sorted = vertexes;
+
+    for(auto a :vertexes){
+        if (a.x < central.x && a.y < central.y)
+            vertexes_sorted[0] = a;
+        if (a.x > central.x && a.y < central.y)
+            vertexes_sorted[1] = a;
+        if (a.x > central.x && a.y > central.y)
+            vertexes_sorted[2] = a;
+        if (a.x < central.x && a.y > central.y)
+            vertexes_sorted[3] = a;
+    }
+    for(auto a :vertexes_sorted)  std::cout << a <<std::endl;
+    for(auto i : vertexes_sorted)
+        cv::circle(dst,i,5,cv::Scalar(0,255,0));
+    cv::imshow("houghNgon",dst);
     cv::waitKey();
 }

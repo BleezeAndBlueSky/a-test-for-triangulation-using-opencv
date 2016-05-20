@@ -24,7 +24,7 @@
 #include <vector>
 #include <cmath>
 #include <cstdlib>
-#include <ctime>
+#include <random>
 
 
 //distance -- max distance to the random line for voting

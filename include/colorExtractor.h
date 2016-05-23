@@ -52,7 +52,6 @@ cv::Mat& colorExtractor(const cv::Mat& image,cv::Mat& dst,int color){
         }
         if(color == BLACK){
             lowerb = cv::Scalar(0,0,0);
-            upperb = cv::Scalar(255,255,25);
         }
 
 

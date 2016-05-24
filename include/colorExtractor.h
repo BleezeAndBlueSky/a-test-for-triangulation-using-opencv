@@ -40,7 +40,6 @@ cv::Mat& colorExtractor(const cv::Mat& image,cv::Mat& dst,int color){
         if(color == BLUE){
             lowerb = cv::Scalar(100,25,25);
             upperb = cv::Scalar(130,255,255);
-            std::cout << lowerb << std::endl;
         }
         if(color == YELLOW){
             lowerb = cv::Scalar(20,25,25);
@@ -48,11 +47,13 @@ cv::Mat& colorExtractor(const cv::Mat& image,cv::Mat& dst,int color){
         }
         if(color == WHITE){
             lowerb = cv::Scalar(0,0,220);
-            upperb = cv::Scalar(255,255,255);
+            upperb = cv::Scalar(255,60,255);
         }
         if(color == BLACK){
-            lowerb = cv::Scalar(0,0,0);
+            lowerb = cv::Scalar(0,150,0);
+            upperb = cv::Scalar(255,255,25);
         }
+
 
 
         cv::inRange(img,lowerb,upperb,mask);

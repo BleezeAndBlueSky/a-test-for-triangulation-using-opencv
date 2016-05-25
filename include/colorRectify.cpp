@@ -1,4 +1,4 @@
-// to configue out the lowerb and upperb in colorExtractor
+// to figue out the lowerb and upperb in colorExtractor
 #include "plate.h"
 #include <opencv2/opencv.hpp>
 using namespace std;

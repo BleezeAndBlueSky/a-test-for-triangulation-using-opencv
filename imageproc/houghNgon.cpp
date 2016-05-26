@@ -1,7 +1,6 @@
 // demo for the use of houghPeak to detect n-gon in the point array
 // given the cv::Mat src,cv::Rect ROI ,bool debugflag for debuging
 
-#include "plate.h"
 #include <opencv2/opencv.hpp>
 #include <vector>
 #include <iostream>

@@ -28,7 +28,7 @@ int main(int argc, char** argv)
             cv::xfeatures2d::SIFT::create(10);
     sift -> detect(image1,skeypoints);
     cv::Mat image2;
-    cv::drawKeypoints(image1,keypoints,image2,cv::Scalar(0,255,0),0);
+    cv::drawKeypoints(image1,skeypoints,image2,cv::Scalar(0,255,0),0);
     cv::imshow("sift",image2);
 
 

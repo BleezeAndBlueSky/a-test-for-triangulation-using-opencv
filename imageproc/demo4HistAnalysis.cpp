@@ -4,7 +4,7 @@
 using namespace std;
 using namespace cv;
 
-int histSize = 256;
+int histSize = 255;
 
 float range[] = { 0, 256 } ;
 const float* histRange = { range };
@@ -28,7 +28,7 @@ void changeThreshAndShowResult(int,void*){
                          Point( bin_w*(i), hist_h - cvRound(hist.at<float>(i)) ),
                          Scalar( 255, 0, 0), 2, 8, 0  );
 
-    line(histImage,Point(thresh,0),Point(thresh,hist_h),Scalar(255,255,255));
+    line(histImage,Point(thresh*bin_w,0),Point(thresh*bin_w,hist_h),Scalar(255,255,255));
     cv::threshold(src,dst,thresh,thresh_maxval,thresh_type);
     imshow("threshold",dst);
     imshow("calcHist Demo", histImage );
@@ -53,11 +53,6 @@ int main(int argc, char** argv)
     imshow("hist",hist);
 
     normalize(hist, hist, 0, histImage.rows, NORM_MINMAX, -1, Mat() );
-
-    for( int i = 1; i < histSize; i++ )
-        line( histImage, Point( bin_w*(i-1), hist_h - cvRound(hist.at<float>(i-1)) ) ,
-                       Point( bin_w*(i), hist_h - cvRound(hist.at<float>(i)) ),
-                       Scalar( 255, 0, 0), 2, 8, 0  );
 
     for( int i = 1; i < histSize; i++ )
         line( histImage, Point( bin_w*(i-1), hist_h - cvRound(hist.at<float>(i-1)) ) ,
